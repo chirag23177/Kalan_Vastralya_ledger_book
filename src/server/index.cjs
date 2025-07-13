@@ -7,27 +7,23 @@ const path = require('path');
 const fs = require('fs');
 const { formatInTimeZone } = require('date-fns-tz');
 
-// Create data directory if it doesn't exist
 const dataDir = path.join(__dirname, '../../data');
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-// Set up SQLite database using sqlite3 instead of better-sqlite3
-const dbPath = path.join(dataDir, 'kala-vastralya.db');
+const dbPath = path.join(dataDir, 'kalan_vastralya.db');
+// const dbPath = path.join(dataDir, 'kala-vastralya.db');
 const db = new sqlite3.Database(dbPath);
 
-// Set up multer for file uploads
 const upload = multer({ dest: path.join(dataDir, 'uploads/') });
 
-// Initialize Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // Initialize database tables
 function initDb() {
-  // Create tables if they don't exist
   db.serialize(() => {
     db.run(`
       CREATE TABLE IF NOT EXISTS categories (
@@ -57,9 +53,6 @@ function initDb() {
       )
     `);
 
-    // Ensure sales table includes customer_address and customer_gstin
-    // If this is the first run, these columns might be missing if not added here.
-    // For existing databases, an ALTER TABLE might be needed separately if they don't exist.
     db.run(`
       CREATE TABLE IF NOT EXISTS sales (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -77,7 +70,6 @@ function initDb() {
         customer_gstin TEXT 
       )
     `);
-    // Attempt to add columns if they don't exist (safe for SQLite)
     db.run("ALTER TABLE sales ADD COLUMN customer_address TEXT", () => {});
     db.run("ALTER TABLE sales ADD COLUMN customer_gstin TEXT", () => {});
 
@@ -96,16 +88,12 @@ function initDb() {
       )
     `);
 
-    // REMOVED SAMPLE DATA INSERTION FOR CATEGORIES
-    // REMOVED SAMPLE DATA INSERTION FOR MANUFACTURERS
-    // REMOVED SAMPLE DATA INSERTION FOR PRODUCTS
   });
 }
 
 // Initialize database
 initDb();
 
-// Helper function to get current date in IST
 function getCurrentDateIST() {
   return formatInTimeZone(new Date(), 'Asia/Kolkata', 'yyyy-MM-dd HH:mm:ss');
 }
@@ -428,8 +416,6 @@ app.post('/api/sales', (req, res) => {
   
   const date = getCurrentDateIST();
 
-  // This will be a more complex operation with sqlite3
-  // We need to implement transactions manually
   try {
     db.serialize(() => {
       db.run('BEGIN TRANSACTION');
@@ -1254,7 +1240,7 @@ app.get('/api/export/sales', (req, res) => {
     
     db.all(query, queryParams, (err, sales) => {
       if (err) {
-        console.error('Error exporting sales:', err); // Log the actual SQL error
+        console.error('Error exporting sales:', err);
         return res.status(500).json({ error: 'Failed to export sales' });
       }
       
@@ -1295,7 +1281,7 @@ app.get('/api/export/sales', (req, res) => {
           if (!itemErr && result && result[0]) {
             salesWithItemCount[index].itemCount = result[0].itemCount;
           } else {
-            salesWithItemCount[index].itemCount = 0; // Default to 0 if error or no result
+            salesWithItemCount[index].itemCount = 0; 
           }
           
           processed++;

@@ -1,73 +1,138 @@
-# Welcome to your Lovable project
+# Kala Vastralya – Retail Management System
 
-## Project info
+A full‑stack, offline‑first web app designed for local clothing stores to manage inventory, record sales & estimates, print bills, and generate detailed reports. Built with React, Node.js, Express, and SQLite—optimized for Indian Standard Time (IST, GMT+5:30).
 
-**URL**: https://lovable.dev/projects/26a5c14b-13ee-4ae1-8d65-ca293409b146
+---
 
-## How can I edit this code?
+## 🔍 Project Description
 
-There are several ways of editing your application.
+Kala Vastralya helps shop owners:
 
-**Use Lovable**
+- **Manage Inventory**  
+  Add/update products by barcode, category & manufacturer. Track stock levels in real time.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/26a5c14b-13ee-4ae1-8d65-ca293409b146) and start prompting.
+- **Record Sales & Estimates**  
+  Create bills (`BILL-XXXX`) or estimates (`EST-XXXX`) with optional customer info, dynamic discount/“To Pay” controls, and optional payment mode.
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Print & Export**  
+  Generate printable receipts. Import/export products via Excel. Export filtered sales/estimates to Excel.
 
-**Use your preferred IDE**
+- **Sales Reporting**  
+  View/filter/search all transactions (by date, type, customer name/mobile). Edit or return items, auto‑adjust inventory & totals.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Offline‑First**  
+  Entirely local—no internet required. All data lives in a SQLite file.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 🚀 Key Functionalities
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+| Feature                   | Details                                                                 |
+|---------------------------|-------------------------------------------------------------------------|
+| Inventory Management      | Barcode scan/input, add categories & manufacturers on the fly, stock updates |
+| Billing & Estimates       | Auto bill/estimate numbering, “Walk In Customer” default, dynamic discount & final amounts |
+| Optional Payment Mode     | Cash/UPI selection (not required)                                        |
+| Excel Integration         | Import products, export inventory or filtered sales/estimates            |
+| Sales Report              | Date & range filters, type filter, global search, edit/return items      |
+| IST Date & Time           | All timestamps stored & displayed in Asia/Kolkata timezone               |
+| One‑Click Launch          | `start-app.bat` to install & run both frontend/backend and open browser  |
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🗂️ File Structure
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```
+
+kala-vastralya-ledger-book/
+├── .gitignore
+├── package.json
+├── prd.txt
+├── README.md
+├── start-app.bat             ← one‑click launcher
+├── data/
+│   └── kalan_vastralya.db     ← SQLite database file
+├── public/
+│   ├── favicon.ico
+│   └── robots.txt
+├── src/
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── server/
+│   │   └── index.cjs         ← Express + SQLite backend
+│   ├── components/           ← UI components
+│   ├── contexts/             ← React Context API
+│   ├── lib/                  ← API helpers
+│   └── pages/                ← Route pages (Inventory, NewSale, SalesReport, etc.)
+├── tailwind.config.ts
+└── vite.config.ts
+```
+
+## 📥 Download & Setup
+
+1. **Clone the repo**  
+```bash
+   git clone https://github.com/<your‑username>/kala-vastralya-leger-book.git
+   cd kala-vastralya-ledger-book
+````
+
+2. **Install Node.js**
+   Download & install the LTS version from [nodejs.org](https://nodejs.org).
+
+3. **Install dependencies**
+
+   ```bash
+   npm install
+   npm install concurrently --save-dev
+   ```
+
+---
+
+## ⚙️ Running the App
+
+### ▶️ One‑Click (Windows)
+
+Double‑click **`start-app.bat`** in the project root.
+This will:
+
+1. Launch backend & frontend via `npm run dev-all`
+2. Wait a few seconds
+3. Open your default browser at `http://localhost:8080/`
+
+### ▶️ Manual
+
+**Backend**
+
+```bash
+node src/server/index.cjs
+```
+
+**Frontend**
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Then open:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+http://localhost:8080/
+```
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🔧 Configuration
 
-## What technologies are used for this project?
+* **Ports**
 
-This project is built with:
+  * Frontend: 8080 (configured in `vite.config.ts`)
+  * Backend: 3001 (default, override via `PORT` env var)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+* **Database**
 
-## How can I deploy this project?
+  * Located at `data/kala-vastralya.db`
+  * Automatically initialized on first run
 
-Simply open [Lovable](https://lovable.dev/projects/26a5c14b-13ee-4ae1-8d65-ca293409b146) and click on Share -> Publish.
+* **Environment Variables**
+  You can set `PORT` to change the backend port. Otherwise it defaults to 3001.
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
