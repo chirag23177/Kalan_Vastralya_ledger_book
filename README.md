@@ -1,4 +1,4 @@
-# Kala Vastralya – Retail Management System
+# Kalan Vastralya – Retail Management System
 
 A full‑stack, offline‑first web app designed for local clothing stores to manage inventory, record sales & estimates, print bills, and generate detailed reports. Built with React, Node.js, Express, and SQLite—optimized for Indian Standard Time (IST, GMT+5:30).
 
@@ -6,7 +6,7 @@ A full‑stack, offline‑first web app designed for local clothing stores to ma
 
 ## 🔍 Project Description
 
-Kala Vastralya helps shop owners:
+Kalan Vastralya helps shop owners:
 
 - **Manage Inventory**  
   Add/update products by barcode, category & manufacturer. Track stock levels in real time.
@@ -43,7 +43,7 @@ Kala Vastralya helps shop owners:
 
 ```
 
-kala-vastralya-ledger-book/
+Kalan_Vastralya_ledger_book/
 ├── .gitignore
 ├── package.json
 ├── prd.txt
@@ -71,8 +71,8 @@ kala-vastralya-ledger-book/
 
 1. **Clone the repo**  
 ```bash
-   git clone https://github.com/<your‑username>/kala-vastralya-leger-book.git
-   cd kala-vastralya-ledger-book
+   git clone https://github.com/chirag23177/Kalan_Vastralya_ledger_book
+   cd Kalan_Vastralya_ledger_book
 ````
 
 2. **Install Node.js**
@@ -129,7 +129,7 @@ http://localhost:8080/
 
 * **Database**
 
-  * Located at `data/kala-vastralya.db`
+  * Located at `data/kalan_vastralya.db`
   * Automatically initialized on first run
 
 * **Environment Variables**
